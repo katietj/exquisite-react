@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import './PlayerSubmissionForm.css';
+import PropTypes from 'prop-types'
 
 class PlayerSubmissionForm extends Component {
 
@@ -11,7 +12,8 @@ class PlayerSubmissionForm extends Component {
       adv: '',
       noun1: '',
       noun2: '',
-      verb: ''
+      verb: '',
+      count: 1
     }
   }
 
@@ -26,13 +28,27 @@ class PlayerSubmissionForm extends Component {
     this.setState(updateState);
   }
 
+  onSubmitHandler = (event) => {
+    event.preventDefault();
+    let count = this.state.count;
+    this.props.addLineSubmissionCallback(this.state);
+    this.setState({
+    adj1: '',
+    adj2: '',
+    adv: '',
+    noun1: '',
+    noun2: '',
+    verb: '',
+    count: count +=1 })
+  }
+
   render() {
 
     return (
       <div className="PlayerSubmissionForm__form">
-        <h3>Player Submission Form for Player #{  }</h3>
+        <h3>Player Submission Form for Player #{ this.state.count }</h3>
 
-        <form className="PlayerSubmissionForm__form" >
+        <form className="PlayerSubmissionForm__form"  onSubmit={this.onSubmitHandler}>
 
           <div className="PlayerSubmissionForm__poem-inputs">
 
@@ -75,9 +91,6 @@ class PlayerSubmissionForm extends Component {
                         type="text" />
                         <p>.</p>
 
-
-
-
           </div>
 
           <div className="PlayerSubmissionForm__submit">
@@ -87,6 +100,10 @@ class PlayerSubmissionForm extends Component {
       </div>
     );
   }
+}
+
+PlayerSubmissionForm.propTypes ={
+  addLineSubmissionCallback: PropTypes.func.isRequired,
 }
 
 export default PlayerSubmissionForm;
