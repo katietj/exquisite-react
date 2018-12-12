@@ -1,20 +1,25 @@
 import React from 'react';
 import './RecentSubmission.css';
+import PropTypes from 'prop-types';
 
 const RecentSubmission = (props) => {
-  const formattedLine = `The ${props.displayLine.adj1}
-    ${props.displayLine.noun1}
-    ${props.displayLine.adv}
-    ${props.displayLine.verb} the
-    ${props.displayLine.adj2}
-    ${props.displayLine.noun2}`;
+  const poem = props.poem.map((line) => {
+    return line
+  })
 
   return (
     <div className="RecentSubmission">
       <h3>The Most Recent Submission</h3>
-      <p className="RecentSubmission__submission">{  formattedLine  }</p>
+      <p className="RecentSubmission__submission">{  poem.pop()  }</p>
     </div>
   );
+}
+
+
+
+RecentSubmission.PropTypes = {
+  poem: PropTypes.array,
+  displayPoem: PropTypes.bool,
 }
 
 export default RecentSubmission;

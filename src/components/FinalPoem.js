@@ -4,21 +4,21 @@ import PropTypes from 'prop-types';
 
 const FinalPoem = (props) => {
 
-  const formattedPoem = props.poem.map((line) => {
-    return ["The",line.adj1, line.noun1, line.adv, line.verb, "the", line.adj, line.noun2, "."].join('')
-  })
+  const poem = props.poem.map((line) => {
+    return <p> {line} </p>
+  });
 
 
   return (
     <div className="FinalPoem">
       <section className="FinalPoem__poem">
         <h3>Final Poem</h3>
-        <p>{props.displayPoem && formattedPoem}</p>
+        <p>{props.displayPoem && poem}</p>
       </section>
 
-      <div className="FinalPoem__reveal-btn-container">
+      { !props.displayPoem && <div className="FinalPoem__reveal-btn-container">
         <input type="button" value="We are finished: Reveal the Poem" className="FinalPoem__reveal-btn" onClick={props.revealPoem}/>
-      </div>
+      </div>}
     </div>
   );
 }

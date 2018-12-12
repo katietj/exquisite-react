@@ -30,8 +30,10 @@ class PlayerSubmissionForm extends Component {
 
   onSubmitHandler = (event) => {
     event.preventDefault();
+    const {adj1, adj2, noun1, noun2, adv, verb} = this.state
+    const newLine = `The ${adj1} ${noun1} ${adv} the ${verb} ${adj2} ${noun2}.`
     let count = this.state.count;
-    this.props.addLineSubmissionCallback(this.state);
+    this.props.addLineSubmissionCallback(newLine);
     this.setState({
     adj1: '',
     adj2: '',
