@@ -3,24 +3,33 @@ import './Game.css';
 import PlayerSubmissionForm from './PlayerSubmissionForm';
 import FinalPoem from './FinalPoem';
 import RecentSubmission from './RecentSubmission';
+import PropTypes from 'prop-types';
 
 class Game extends Component {
 
   constructor(props) {
     super(props);
     this.state = {
-      poem : []
+      poem : [],
+      lastLine: {}
+
     }
   }
 
   addLine = (newLine) => {
-    console.log(newLine);
-      const { poem } = this.state;
+    let poem = [...this.state.poem];
       poem.push(newLine);
       this.setState({
-         poem,
-      })
+         poem: poem,
+         lastLine: newLine
+      });
     }
+
+    revealPoem = () => {
+        this.setState({
+           displayPoem: true
+        });
+      }
 
 
 
@@ -46,11 +55,11 @@ class Game extends Component {
           { exampleFormat }
         </p>
 
-        <RecentSubmission />
+        {!this.state.displayPoem && <RecentSubmission displayLine={ this.state.lastLine }/>}
 
-        <PlayerSubmissionForm addLineSubmissionCallback={this.addLine} />
+        {!this.state.displayPoem && <PlayerSubmissionForm addLineSubmissionCallback={this.addLine} />}
 
-        <FinalPoem />
+        <FinalPoem displayPoem={this.state.displayPoem} revealPoem={this.revealPoem} poem={this.state.poem}/>
 
       </div>
     );
